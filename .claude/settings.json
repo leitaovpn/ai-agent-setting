@@ -2,8 +2,10 @@
   "permissions": {
     "allow": [
       "Read",
-      "Write(*ai-agent-settings/*)",
-      "Edit(*ai-agent-settings/*)",
+      "Write(*/ai-agent-settings/*)",
+      "Edit(*/ai-agent-settings/*)",
+      "Write(ai-agent-settings/*)",
+      "Edit(ai-agent-settings/*)",
       "Bash(git *)",
       "Bash(*/git *)",
       "Bash(npm *)",
@@ -52,9 +54,39 @@
       "Bash(*/rm -rf *)"
     ],
     "ask": [
-      "Write(*ai-agent-settings/.*)",
-      "Edit(*ai-agent-settings/.*)",
-      "Bash(* > *)"
+      "Write(*/ai-agent-settings/.*)",
+      "Edit(*/ai-agent-settings/.*)",
+      "Write(ai-agent-settings/.*)",
+      "Edit(ai-agent-settings/.*)",
+      "Bash(* > *)",
+      "Bash(git push *-f *)",
+      "Bash(*/git push *-f *)",
+      "Bash(git push *--force *)",
+      "Bash(*/git push *--force *)",
+      "Bash(git push *--delete *)",
+      "Bash(*/git push *--delete *)",
+      "Bash(git reset *)",
+      "Bash(*/git reset *)",
+      "Bash(git rebase *)",
+      "Bash(*/git rebase *)",
+      "Bash(git clean *)",
+      "Bash(*/git clean *)",
+      "Bash(git stash drop *)",
+      "Bash(*/git stash drop *)",
+      "Bash(git stash clear *)",
+      "Bash(*/git stash clear *)",
+      "Bash(git branch -D *)",
+      "Bash(*/git branch -D *)",
+      "Bash(git branch --delete *)",
+      "Bash(*/git branch --delete *)",
+      "Bash(git checkout -- *)",
+      "Bash(*/git checkout -- *)",
+      "Bash(git restore *)",
+      "Bash(*/git restore *)",
+      "Bash(git reflog *)",
+      "Bash(*/git reflog *)",
+      "Bash(git gc *)",
+      "Bash(*/git gc *)"
     ]
   }
 }
