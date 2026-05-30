@@ -46,10 +46,6 @@
       "Bash(*/touch *)",
       "Bash(sed *)",
       "Bash(*/sed *)",
-      "Bash(sed -i ai-agent-setting/*)",
-      "Bash(*/sed -i ai-agent-setting/*)",
-      "Bash(sed -i */ai-agent-setting/*)",
-      "Bash(*/sed -i */ai-agent-setting/*)",
       "Bash(awk *)",
       "Bash(*/awk *)"
     ],
@@ -63,8 +59,7 @@
       "Write(ai-agent-setting/.*)",
       "Edit(ai-agent-setting/.*)",
       "Bash(* > *)",
-      "Bash(sed -i *)",
-      "Bash(*/sed -i *)",
+      "Bash(* >> *)",
       "Bash(git push *-f *)",
       "Bash(*/git push *-f *)",
       "Bash(git push *--force *)",
@@ -92,7 +87,9 @@
       "Bash(git reflog *)",
       "Bash(*/git reflog *)",
       "Bash(git gc *)",
-      "Bash(*/git gc *)"
+      "Bash(*/git gc *)",
+      "Bash(sed -i *)",
+      "Bash(*/sed -i *)"
     ]
   }
 }
