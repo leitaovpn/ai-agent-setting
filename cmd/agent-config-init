@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+"""Entry-point script for agent-config-init.
+
+Installed to bin/ via scripts= in setup.py.
+"""
+
+from agent_config_init.cli import main
+
+main()
