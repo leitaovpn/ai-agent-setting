@@ -2,6 +2,7 @@
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": true,
+    "dangerouslyDisableSandbox": false,
     "filesystem": {
       "allowWrite": ["/tmp"],
       "denyWrite": [".claude/**"],
