@@ -47,19 +47,20 @@ def _build_candidates(agent_name: str):
 
 
 def load_config(agent_name: str) -> dict:
-    """Load the template configuration for *agent_name*.
-
-    If *target_dir* is provided, it is also used to derive a fallback
-    candidate relative to the source checkout.
-    """
+    """Load the template configuration for *agent_name*."""
     _validate_agent_name(agent_name)
 
     candidates = list(_build_candidates(agent_name))
 
     for path in candidates:
         if path.is_file():
-            with open(path, "r", encoding="utf-8") as f:
-                return json.load(f)
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except json.JSONDecodeError as e:
+                raise ConfigNotFoundError(
+                    f"Template file {path} is not valid JSON: {e}"
+                ) from e
 
     raise ConfigNotFoundError(
         f"No configuration template found for agent '{agent_name}'.\n"

@@ -9,9 +9,12 @@ Rules:
 
 import copy
 import json
-import sys
 from pathlib import Path
-from typing import cast
+from typing import Dict, Optional, Tuple, cast
+
+
+class MergeError(Exception):
+    """Raised when the target file cannot be read or merged."""
 
 
 _MISSING = object()
@@ -19,7 +22,7 @@ _MISSING = object()
 
 def deep_equal(a, b) -> bool:
     """Structural deep equality for JSON-compatible values."""
-    if not isinstance(a, type(b)):
+    if type(a) is not type(b):
         return False
     if isinstance(a, dict):
         return a.keys() == b.keys() and all(
@@ -60,47 +63,37 @@ def deep_merge(existing, template):
     return existing
 
 
-def deep_merge_into_target(target_path: Path, template: dict) -> dict:
+def deep_merge_into_target(
+    target_path: Path, template: dict
+) -> Tuple[Dict, Optional[Dict]]:
     """Read *target_path*, deep-merge *template* into its contents.
 
-    Returns the merged dict (does not write).
+    Returns (merged_dict, original_dict_or_None).
     """
     try:
         with open(target_path, "r", encoding="utf-8") as f:
             existing = json.load(f)
-    except json.JSONDecodeError as e:
-        print(
-            f"Error: Existing file {target_path} is not valid JSON: {e}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
     except FileNotFoundError:
-        return template
+        return template, None
+    except (json.JSONDecodeError, UnicodeDecodeError) as e:
+        raise MergeError(
+            f"Existing file {target_path} is not valid JSON: {e}"
+        ) from e
     except PermissionError as e:
-        print(
-            f"Error: Permission denied reading {target_path}: {e}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+        raise MergeError(
+            f"Permission denied reading {target_path}: {e}"
+        ) from e
     except IsADirectoryError:
-        print(
-            f"Error: {target_path} is a directory, expected a JSON file",
-            file=sys.stderr,
+        raise MergeError(
+            f"{target_path} is a directory, expected a JSON file"
         )
-        sys.exit(1)
     except OSError as e:
-        print(
-            f"Error: Cannot read {target_path}: {e}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+        raise MergeError(f"Cannot read {target_path}: {e}") from e
 
     if not isinstance(existing, dict):
-        print(
-            f"Error: {target_path} must contain a JSON object, "
-            f"got {type(existing).__name__}",
-            file=sys.stderr,
+        raise MergeError(
+            f"{target_path} must contain a JSON object, "
+            f"got {type(existing).__name__}"
         )
-        sys.exit(1)
 
-    return cast(dict, deep_merge(existing, template))
+    return cast(dict, deep_merge(existing, template)), existing
