@@ -11,7 +11,7 @@
     "allowUnsandboxedCommands": false,
     "filesystem": {
       "allowWrite": ["/tmp"],
-      "denyWrite": [],
+      "denyWrite": [".claude/**"],
       "allowRead": [],
       "denyRead": []
     },
