@@ -4,6 +4,7 @@ build/*
 dist/*
 **/*.egg-info/*
 review_result/*
+.claude/settings.json
 
 !.gitignore
 !.claude/settings.json

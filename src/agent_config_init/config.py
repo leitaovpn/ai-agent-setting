@@ -2,15 +2,15 @@
 
 Search order (first match wins):
 1. $AGENT_CONFIG_INIT_DIR/<agent>/settings.json  (env var override)
-2. /etc/agent-config-init/<agent>/settings.json  (system install)
-3. <sys.prefix>/etc/agent-config-init/<agent>/settings.json  (pip --prefix)
+2. <data>/etc/agent-config-init/<agent>/settings.json  (pip/setup.py install)
+3. /etc/agent-config-init/<agent>/settings.json  (system-level fallback)
 4. <package_dir>/../../config/<agent>/settings.json  (dev fallback)
 """
 
 import json
 import os
 import re
-import sys
+import sysconfig
 from pathlib import Path
 
 
@@ -37,8 +37,9 @@ def _build_candidates(agent_name: str):
     if env_dir:
         yield Path(env_dir) / agent_name / "settings.json"
 
+    data = sysconfig.get_path("data")
+    yield Path(data) / "etc" / "agent-config-init" / agent_name / "settings.json"
     yield Path("/etc/agent-config-init") / agent_name / "settings.json"
-    yield Path(sys.prefix) / "etc" / "agent-config-init" / agent_name / "settings.json"
 
     # Development fallback: relative to this file
     # src/agent_config_init/config.py → up 3 levels → config/<agent>/settings.json
