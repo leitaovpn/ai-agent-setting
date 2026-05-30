@@ -1,0 +1,1 @@
+# No third-party runtime dependencies — agent-config-init uses only Python stdlib.

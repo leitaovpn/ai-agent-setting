@@ -1,0 +1,19 @@
+[project]
+name = "agent-config-init"
+version = "0.1.0"
+description = "Initialize and merge agent configuration files"
+requires-python = ">=3.8"
+dependencies = []
+
+[project.scripts]
+agent-config-init = "agent_config_init.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0",
+    "mypy>=1.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
