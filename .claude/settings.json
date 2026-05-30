@@ -1,8 +1,10 @@
 {
   "permissions": {
     "deny": [
-      "Edit(.claude/**)",
-      "Write(.claude/**)"
+      "Edit(.claude/settings.json)",
+      "Write(.claude/settings.json)",
+      "Edit(.claude/settings.local.json)",
+      "Write(.claude/settings.local.json)"
     ]
   },
   "sandbox": {
@@ -11,7 +13,7 @@
     "allowUnsandboxedCommands": false,
     "filesystem": {
       "allowWrite": ["/tmp"],
-      "denyWrite": [".claude/**"],
+      "denyWrite": [".claude/settings.json", ".claude/settings.local.json"],
       "allowRead": [],
       "denyRead": []
     },
