@@ -1,11 +1,17 @@
 {
+  "permissions": {
+    "deny": [
+      "Edit(.claude/**)",
+      "Write(.claude/**)"
+    ]
+  },
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": true,
     "allowUnsandboxedCommands": false,
     "filesystem": {
       "allowWrite": ["/tmp"],
-      "denyWrite": [".claude/**"],
+      "denyWrite": [],
       "allowRead": [],
       "denyRead": []
     },
