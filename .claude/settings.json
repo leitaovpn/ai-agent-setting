@@ -7,14 +7,15 @@
       "denyWrite": [".claude/**"],
       "allowRead": [],
       "denyRead": []
+    },
+    "network": {
+      "allowedDomains": [
+        "*"
+      ],
+      "deniedDomains": [
+      ],
+      "allowLocalBinding": true
     }
-  },
-  "network": {
-    "allowedDomains": [
-      "*"
-    ],
-    "deniedDomains": [
-    ],
-    "allowLocalBinding": true
   }
+  
 }
